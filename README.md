@@ -3,11 +3,19 @@
 
 It's a nodejs script with zero dependencies. You don't need to install node_modules.
 
-Quick start
+## Quick start
 
 ```bash
 cd /tmp && git clone --quiet https://github.com/ryanberckmans/coronavirus.git && cd coronavirus && ./report
 ```
+
+## About this report
+
+Right now in America we're in a situation where the virus is growing exponentially into the tens of thousands of cases, and testing is ramping up exponentially to essentially attempt to catch up with the virus.
+
+I'm interested in the stat "percent of people newly tested that have the virus". Lower is better. The intuition here is that if the government is testing lots of people and 99% of those tested don't have the virus, that may be evidence that the virus is being controlled or at least tracked effectively.
+
+For the three days ending March 21st, 2020, the "percent of people newly tested that have the virus" was 14% in the USA vs 1% in South Korea. That means that 86% of people tested in the USA didn't have the virus vs 99% in South Korea.
 
 ## Example output (actual data as of 2020/3/21)
 

@@ -63,7 +63,7 @@ FAQ
   Q: Which data?
   A: Data for just USA from https://covidtracking.com
 
-  Q: What's up with "percent of people newly tested that have the virus"?
+  Q: What's up with "percent of newly tested people that have the virus"?
   A: In South Korea this number is about 1%. Ie. in South Korea 99% of people
      newly tested for covid don't have the virus. If America can get this
      number lower then that may be evidence that we are starting to control
@@ -80,7 +80,7 @@ FAQ
     return `For ${dayLater.date - dayEarlier.date} days ending ${dayLater.date}
   percent growth in total cumulative people with the virus: ${renderPercent(d.percentGrowthInPositive)}
   percent growth in total cumulative tests done to see if people have the virus: ${renderPercent(d.percentGrowthInTotalTests)}
-  percent of people newly tested that have the virus: ${renderPercent(d.percentNewTestResultsThatArePositive)}`;
+  percent of newly tested people that have the virus: ${renderPercent(d.percentNewTestResultsThatArePositive)}`;
   }
 
   function renderPercent(pct) {

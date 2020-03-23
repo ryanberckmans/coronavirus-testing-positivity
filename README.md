@@ -1,5 +1,5 @@
 
-# A daily coronavirus report on the command line
+# A comparison between the USA and South Korea for the stat of "coronavirus testing positivity rate"
 
 It's a nodejs script with zero dependencies. You don't need to install node_modules.
 
@@ -13,31 +13,40 @@ cd /tmp && git clone --quiet https://github.com/ryanberckmans/coronavirus.git &&
 
 Right now in America we're in a situation where the virus is growing exponentially into the tens of thousands of cases, and testing is ramping up exponentially to essentially attempt to catch up with the virus.
 
-I'm interested in the stat "percent of newly tested people that have the virus". Lower is better. The intuition here is that if the government is testing lots of people and 99% of those tested don't have the virus, that may be evidence that the virus is being controlled or at least tracked effectively.
+I'm interested in the stat "testing positivity rate" which is the percent of newly tested people that have the virus. Lower is better. The intuition here is that if the government is testing lots of people and 99% of those tested don't have the virus, that may be evidence that the virus is being controlled or at least tracked effectively.
 
-For the three days ending March 21st, 2020, the "percent of newly tested people that have the virus" was 14% in the USA vs 1% in South Korea. That means that 86% of people tested in the USA didn't have the virus vs 99% in South Korea.
+Scott Gottlieb, former commissioner of the FDA, has [written about](https://twitter.com/ScottGottliebMD/status/1241864843008892934) the importance of the testing positivity rate.
 
-## Example output (actual data as of 2020/3/21)
+## Example output (actual data as of 2020/3/23)
 
 ```
-For 1 days ending 20200321
-  percent growth in total cumulative people with the virus: 36.2%
-  percent growth in total cumulative tests done to see if people have the virus: 31.8%
-  percent of newly tested people that have the virus: 14%
+For 1 days ending 20200323
+  total case growth    US: 32.2%     SK: 0.7%
+  total test growth    US: 28.8%     SK: 1.9%
+  positivity rate      US: 19%       SK: 0.9%
 
-For 2 days ending 20200321
-  percent growth in total cumulative people with the virus: 97.9%
-  percent growth in total cumulative tests done to see if people have the virus: 75.8%
-  percent of newly tested people that have the virus: 14.7%
+For 2 days ending 20200323
+  total case growth    US: 81.7%     SK: 1.8%
+  total test growth    US: 61%       SK: 3.2%
+  positivity rate      US: 18.9%     SK: 1.3%
 
-For 3 days ending 20200321
-  percent growth in total cumulative people with the virus: 200.1%
-  percent growth in total cumulative tests done to see if people have the virus: 138.7%
-  percent of newly tested people that have the virus: 14.7%
+For 3 days ending 20200323
+  total case growth    US: 147.5%    SK: 3.6%
+  total test growth    US: 112.3%    SK: 6.7%
+  positivity rate      US: 17.4%     SK: 1.3%
 
 FAQ
   Q: Which data?
   A: Data for just USA from https://covidtracking.com
+
+  Q: What's "total case growth"?
+  A: Percent growth in total cumulative people with the virus.
+
+  Q: What's "total test growth"?
+  A: Percent growth in total cumulative tests done to see if people have the virus.
+
+  Q: What's "positivity rate"?
+  A: Percent of newly tested people that test positive, ie. do have the virus.
 
   Q: What's up with "percent of newly tested people that have the virus"?
   A: In South Korea this number is about 1%. Ie. in South Korea 99% of people

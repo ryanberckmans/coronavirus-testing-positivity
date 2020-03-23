@@ -1,5 +1,5 @@
 
-# A comparison between the USA and South Korea for the stat of "coronavirus testing positivity rate"
+# A comparison between the USA and South Korea for the metric of "coronavirus testing positivity rate"
 
 It's a nodejs script with zero dependencies. You don't need to install node_modules.
 
@@ -13,7 +13,7 @@ cd /tmp && git clone --quiet https://github.com/ryanberckmans/coronavirus.git &&
 
 Right now in America we're in a situation where the virus is growing exponentially into the tens of thousands of cases, and testing is ramping up exponentially to essentially attempt to catch up with the virus.
 
-I'm interested in the stat "testing positivity rate" which is the percent of newly tested people that have the virus. Lower is better. The intuition here is that if the government is testing lots of people and 99% of those tested don't have the virus, that may be evidence that the virus is being controlled or at least tracked effectively.
+I'm interested in the metric "testing positivity rate" which is the percent of newly tested people that have the virus. Lower is better. The intuition here is that if the government is testing lots of people and 99% of those tested don't have the virus, that may be evidence that the virus is being controlled or at least tracked effectively.
 
 Scott Gottlieb, former commissioner of the FDA, has [written about](https://twitter.com/ScottGottliebMD/status/1241864843008892934) the importance of the testing positivity rate.
 

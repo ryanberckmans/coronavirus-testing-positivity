@@ -48,10 +48,10 @@ async function getCovidData() {
 async function report() {
   const d = await getCovidData();
 
-  const mostRecentDay = d[d.length - 1];
-  const dayBeforeMostRecent = d[d.length - 2];
-  const twoDaysBeforeMostRecent = d[d.length - 3];
-  const threeDaysBeforeMostRecent = d[d.length - 4];
+  const mostRecentDay = d[0];
+  const dayBeforeMostRecent = d[1];
+  const twoDaysBeforeMostRecent = d[2];
+  const threeDaysBeforeMostRecent = d[3];
 
   const r = `${reportOne(dayBeforeMostRecent, mostRecentDay)}
 

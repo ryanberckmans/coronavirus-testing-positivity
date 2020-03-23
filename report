@@ -26,7 +26,68 @@ const BgMagenta = "\x1b[45m";
 const BgCyan = "\x1b[46m";
 const BgWhite = "\x1b[47m";
 
-async function getCovidData() {
+async function getSouthKoreaCovidData() {
+  // TDOO automate this data collection. The South Korean data comes from a javascript-required web app without an API. Data for individual dates are addressable, eg. https://www.cdc.go.kr/board/board.es?mid=&bid=0030&act=view&list_no=366627&tag=&nPage=1, but not discoverable without scraping them from the index page https://www.cdc.go.kr/board/board.es?mid=&bid=0030.
+  // TODO add strong typing, maybe translate this prototype into Scala
+
+  // How to add new entries to the hardcoded data:
+  //  1. go here https://www.cdc.go.kr/board/board.es?mid=&bid=0030
+  //  2. find a post for the next day, like "The updates on COVID-19 in Korea as of 23 March"
+  //  3. update my sheet "COVID growth in USA vs South Korea" https://docs.google.com/spreadsheets/d/1hLOUe2QYKK1h8lmnYDK77J3q-MpkyS3KgXNtA098f6E/edit#gid=0
+  //  4. copy values from sheet into this script
+
+  // Data type should be equivalent to the subset we're using of the type at https://covidtracking.com/api/us/daily
+  return Promise.resolve([
+    {
+      date: 20200323,
+      positive: 8961,
+      negative: 315447,
+      pending: 13628,
+    },
+    {
+      date: 20200322,
+      positive: 8897,
+      negative: 308343,
+      pending: 14540,
+    },
+    {
+      date: 20200321,
+      positive: 8799,
+      negative: 303006,
+      pending: 15704,
+    },
+    {
+      date: 20200320,
+      positive: 8652,
+      negative: 292487,
+      pending: 15525,
+    },
+    {
+      date: 20200319,
+      positive: 8565,
+      negative: 282555,
+      pending: 15904,
+    },
+    {
+      date: 20200318,
+      positive: 8413,
+      negative: 270888,
+      pending: 16346,
+    },
+    {
+      date: 20200317,
+      positive: 8320,
+      negative: 261105,
+      pending: 17291,
+    },
+  ].map(o => {
+    o.posNeg = o.positive + o.negative;
+    o.total = o.positive + o.negative + o.pending;
+    return o;
+  }));
+}
+
+async function getUSACovidData() {
   return new Promise((resolve, reject) => {
     const https = require('https');
     https.get("https://covidtracking.com/api/us/daily", (resp) => {
@@ -46,22 +107,37 @@ async function getCovidData() {
 }
 
 async function report() {
-  const d = await getCovidData();
+  const d = await getUSACovidData();
+  const sk = await getSouthKoreaCovidData();
 
   const mostRecentDay = d[0];
   const dayBeforeMostRecent = d[1];
   const twoDaysBeforeMostRecent = d[2];
   const threeDaysBeforeMostRecent = d[3];
 
-  const r = `${reportOne(dayBeforeMostRecent, mostRecentDay)}
+  const mostRecentDaySK = sk[0];
+  const dayBeforeMostRecentSK = sk[1];
+  const twoDaysBeforeMostRecentSK = sk[2];
+  const threeDaysBeforeMostRecentSK = sk[3];
 
-${reportOne(twoDaysBeforeMostRecent, mostRecentDay)}
+  const r = `${reportOne(dayBeforeMostRecent, mostRecentDay, dayBeforeMostRecentSK, mostRecentDaySK)}
 
-${reportOne(threeDaysBeforeMostRecent, mostRecentDay)}
+${reportOne(twoDaysBeforeMostRecent, mostRecentDay, twoDaysBeforeMostRecentSK, mostRecentDaySK)}
+
+${reportOne(threeDaysBeforeMostRecent, mostRecentDay, threeDaysBeforeMostRecentSK, mostRecentDaySK)}
 
 FAQ
   Q: Which data?
   A: Data for just USA from https://covidtracking.com
+
+  Q: What's "total case growth"?
+  A: Percent growth in total cumulative people with the virus.
+
+  Q: What's "total test growth"?
+  A: Percent growth in total cumulative tests done to see if people have the virus.
+
+  Q: What's "positivity rate"?
+  A: Percent of newly tested people that test positive, ie. do have the virus.
 
   Q: What's up with "percent of newly tested people that have the virus"?
   A: In South Korea this number is about 1%. Ie. in South Korea 99% of people
@@ -75,16 +151,17 @@ FAQ
     return `${day.date} `
   }
 
-  function reportOne(dayEarlier, dayLater) {
+  function reportOne(dayEarlier, dayLater, dayEarlierSK, dayLaterSK) {
     const d = delta(dayEarlier, dayLater);
-    return `For ${dayLater.date - dayEarlier.date} days ending ${dayLater.date}
-  percent growth in total cumulative people with the virus: ${renderPercent(d.percentGrowthInPositive)}
-  percent growth in total cumulative tests done to see if people have the virus: ${renderPercent(d.percentGrowthInTotalTests)}
-  percent of newly tested people that have the virus: ${renderPercent(d.percentNewTestResultsThatArePositive)}`;
+    const sk = delta(dayEarlierSK, dayLaterSK);
+    return `For ${dayLater.date - dayEarlier.date} days ending ${dayLater.date} ${dayLater.date === dayLaterSK.date ? '' : `(${dayLaterSK.date} in SK)`}
+  total case growth    US: ${renderPercent(d.percentGrowthInPositive)}    SK: ${renderPercent(sk.percentGrowthInPositive)}
+  total test growth    US: ${renderPercent(d.percentGrowthInTotalTests)}    SK: ${renderPercent(sk.percentGrowthInTotalTests)}
+  positivity rate      US: ${renderPercent(d.percentNewTestResultsThatArePositive)}    SK: ${renderPercent(sk.percentNewTestResultsThatArePositive)}`;
   }
 
   function renderPercent(pct) {
-    return `${Math.round(pct * 1000) / 10}%`;
+    return `${Math.round(pct * 1000) / 10}%`.padEnd(6);
   }
 
   function delta(dayEarlier, dayLater) {

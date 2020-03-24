@@ -120,27 +120,32 @@ async function report() {
   const dayBeforeMostRecent = d[1];
   const twoDaysBeforeMostRecent = d[2];
   const threeDaysBeforeMostRecent = d[3];
+  const oneWeekBeforeMostRecent = d[7];
 
   const mostRecentDaySK = sk[0];
   const dayBeforeMostRecentSK = sk[1];
   const twoDaysBeforeMostRecentSK = sk[2];
   const threeDaysBeforeMostRecentSK = sk[3];
+  const oneWeekBeforeMostRecentSK = sk[7];
 
-  const r = `${reportOne(dayBeforeMostRecent, mostRecentDay, dayBeforeMostRecentSK, mostRecentDaySK)}
-
-${reportOne(twoDaysBeforeMostRecent, mostRecentDay, twoDaysBeforeMostRecentSK, mostRecentDaySK)}
-
-${reportOne(threeDaysBeforeMostRecent, mostRecentDay, threeDaysBeforeMostRecentSK, mostRecentDaySK)}
-
-FAQ
+  const r = `FAQ
   Q: Which data?
   A: Data for just USA from https://covidtracking.com
+
+  Q: For X days?
+  A: Data for each period is cumulative for that period, not per day. For
+     example if the USA has 887 tests per million people over the past 7 days,
+     that means all those tests were done over the entire weeklong period,
+     that's not 887 per day, it's 887 for the entire week.
 
   Q: What's "total case growth"?
   A: Percent growth in total cumulative people with the virus.
 
   Q: What's "total test growth"?
   A: Percent growth in total cumulative tests done to see if people have the virus.
+
+  Q: What's "tests per million"?
+  A: The number of tests conducted this period per million people in that country.
 
   Q: What's "positivity rate"?
   A: Percent of newly tested people that test positive, ie. do have the virus.
@@ -149,7 +154,13 @@ FAQ
   A: In South Korea this number is about 1%. Ie. in South Korea 99% of people
      newly tested for covid don't have the virus. If America can get this
      number lower then that may be evidence that we are starting to control
-     the virus.`;
+     the virus.
+
+${reportOne(dayBeforeMostRecent, mostRecentDay, dayBeforeMostRecentSK, mostRecentDaySK)}
+
+${reportOne(threeDaysBeforeMostRecent, mostRecentDay, threeDaysBeforeMostRecentSK, mostRecentDaySK)}
+
+${reportOne(oneWeekBeforeMostRecent, mostRecentDay, oneWeekBeforeMostRecentSK, mostRecentDaySK)}`;
 
   console.log(r);
 
@@ -158,12 +169,15 @@ FAQ
   }
 
   function reportOne(dayEarlier, dayLater, dayEarlierSK, dayLaterSK) {
+    const millionsOfPeopleInUS = 327.2;
+    const millionsOfPeopleInSK = 51.47;
     const d = delta(dayEarlier, dayLater);
     const sk = delta(dayEarlierSK, dayLaterSK);
     return `For ${dayLater.date - dayEarlier.date} days ending ${dayLater.date} ${dayLater.date === dayLaterSK.date ? '' : `(${dayLaterSK.date} in SK)`}
   total case growth    US: ${renderPercent(d.percentGrowthInPositive)}    SK: ${renderPercent(sk.percentGrowthInPositive)}
   total test growth    US: ${renderPercent(d.percentGrowthInTotalTests)}    SK: ${renderPercent(sk.percentGrowthInTotalTests)}
-  positivity rate      US: ${renderPercent(d.percentNewTestResultsThatArePositive)}    SK: ${renderPercent(sk.percentNewTestResultsThatArePositive)}`;
+  positivity rate      US: ${renderPercent(d.percentNewTestResultsThatArePositive)}    SK: ${renderPercent(sk.percentNewTestResultsThatArePositive)}
+  tests per million    US: ${Math.round(d.posNegDelta / millionsOfPeopleInUS).toString().padEnd(6)}    SK: ${Math.round(sk.posNegDelta / millionsOfPeopleInSK).toString().padEnd(6)}`;
   }
 
   function renderPercent(pct) {

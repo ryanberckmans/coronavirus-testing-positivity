@@ -166,7 +166,9 @@ ${reportOne(dayBeforeMostRecent, mostRecentDay, dayBeforeMostRecentSK, mostRecen
 
 ${reportOne(threeDaysBeforeMostRecent, mostRecentDay, threeDaysBeforeMostRecentSK, mostRecentDaySK)}
 
-${reportOne(oneWeekBeforeMostRecent, mostRecentDay, oneWeekBeforeMostRecentSK, mostRecentDaySK)}`;
+${reportOne(oneWeekBeforeMostRecent, mostRecentDay, oneWeekBeforeMostRecentSK, mostRecentDaySK)}
+
+Source: COVID Tracking Project, CDC of South Korea`;
 
   console.log(r);
 

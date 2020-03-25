@@ -189,7 +189,7 @@ Source: COVID Tracking Project, CDC of South Korea`;
   }
 
   function renderPercent(pct) {
-    return `${(pct * 100).toFixed(pct > 0.1 ? 0 : 1)}%`.padEnd(6);
+    return `${(pct * 100).toFixed(pct > 1 ? 0 : 1)}%`.padEnd(6);
   }
 
   function delta(dayEarlier, dayLater) {

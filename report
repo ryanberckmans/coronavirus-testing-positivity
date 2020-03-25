@@ -39,6 +39,12 @@ async function getSouthKoreaCovidData() {
   // Data type should be equivalent to the subset we're using of the type at https://covidtracking.com/api/us/daily
   return Promise.resolve([
     {
+      date: 20200325,
+      positive: 9137,
+      negative: 334481,
+      pending: 14278,
+    },
+    {
       date: 20200324,
       positive: 9037,
       negative: 324105,

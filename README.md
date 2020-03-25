@@ -17,7 +17,7 @@ I'm interested in the metric "testing positivity rate" which is the percent of n
 
 Scott Gottlieb, former commissioner of the FDA, has [written about](https://twitter.com/ScottGottliebMD/status/1241864843008892934) the importance of the testing positivity rate.
 
-## Example output (actual data as of 2020/3/24)
+## Example output (actual data as of 2020/3/25)
 
 ```
 FAQ
@@ -48,21 +48,23 @@ FAQ
      number lower then that may be evidence that we are starting to control
      the virus.
 
-For 1 days ending 20200324 
-  total case growth    US: 22.4%     SK: 0.8%  
-  total test growth    US: 21.7%     SK: 3.1%  
-  positivity rate      US: 14.7%     SK: 0.9%  
-  tests per million    US: 196       SK: 170   
+For 1 days ending 20200325
+  total case growth    US: 22.5%     SK: 1.1%
+  total test growth    US: 20.7%     SK: 2.7%
+  positivity rate      US: 15.8%     SK: 1.0%
+  tests per million    US: 226       SK: 204
 
-For 3 days ending 20200324 
-  total case growth    US: 122.4%    SK: 2.7%  
-  total test growth    US: 96%       SK: 6.4%  
-  positivity rate      US: 17.3%     SK: 1.1%  
-  tests per million    US: 502       SK: 415   
+For 3 days ending 20200325
+  total case growth    US: 99.7%     SK: 2.7%
+  total test growth    US: 90.0%     SK: 7.9%
+  positivity rate      US: 16.4%     SK: 0.9%
+  tests per million    US: 591       SK: 512
 
-For 7 days ending 20200324 
-  total case growth    US: 801.6%    SK: 8.6%  
-  total test growth    US: 551.2%    SK: 21.6% 
-  positivity rate      US: 15.8%     SK: 1.1%  
-  tests per million    US: 887       SK: 1238
+For 7 days ending 20200325
+  total case growth    US: 724%      SK: 8.6%
+  total test growth    US: 467%      SK: 21.1%
+  positivity rate      US: 16.2%     SK: 1.1%
+  tests per million    US: 1054      SK: 1250
+
+Source: COVID Tracking Project, CDC of South Korea
 ```
